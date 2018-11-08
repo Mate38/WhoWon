@@ -9,10 +9,28 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      carta = null,
-      naipe = null    
+      carta: null,
+      naipe: null    
     };
   };
+
+  componentDidMount = () => {
+    if(this.props.rota == 'selector'){
+      for(card in this.props.selectCards){
+        if(this.props.selectCards[card][2] == this.props.posicao){
+          this.setState({
+            carta: this.props.selectCards[card][0],
+            naipe: this.props.selectCards[card][1],
+          })
+        }
+      }
+    }else{
+      this.setState({
+        carta: this.props.carta,
+        naipe: this.props.naipe,
+      })
+    }
+  }
 
   /**
    * 1 = Ouro, 2 = Copas, 3 = Espadas, 4 = Paus 
@@ -32,10 +50,10 @@ class Card extends Component {
     }
   };
 
-  _onPressButton = (rota, carta, naipe, posicao) => {
+  _onPressButton = (rota, posicao) => {
     switch(rota){
       case 'home':
-        this.props.cardSelect([carta, naipe, posicao]);
+        this.props.cardSelect([this.state.carta, this.state.naipe, posicao]);
         return Actions.home()
       case 'selector':
         return Actions.selector({posicao})
@@ -47,8 +65,7 @@ class Card extends Component {
   render() {
     return (
       <TouchableOpacity
-        {...props}
-        onPress={() => this._onPressButton(this.props.rota, this.state.carta, this.state.naipe, this.props.posicao)}
+        onPress={() => this._onPressButton(this.props.rota, this.props.posicao)}
         style={{
           height: this.props.altura,
           width: this.props.largura,

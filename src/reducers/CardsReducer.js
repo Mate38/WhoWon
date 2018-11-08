@@ -1,35 +1,40 @@
+/**
+ * Primeiro digito: 1= Jogador 1; 2= Jogador 2; 3= Cartas comunitárias
+ * Segundo digito: Número da carta
+ */
 const INITIAL_STATE = {
-  comunnityCardOne:   [null,null,31], // 31
-  comunnityCardTwo:   [null,null,32], // 32
-  comunnityCardThree: [null,null,33], // 33
-  comunnityCardFour:  [null,null,34], // 34
-  comunnityCardFive:  [null,null,35], // 35
-  playerOneCardOne:   [null,null,11], // 11
-  playerOneCardTwo:   [null,null,12], // 12
-  playerTwoCardOne:   [null,null,21], // 21
-  playerTwoCardTwo:   [null,null,22], // 22
+  31: [null,null,31],
+  32: [null,null,32],
+  33: [null,null,33],
+  34: [null,null,34],
+  35: [null,null,35],
+  11: [null,null,11],
+  12: [null,null,12],
+  21: [null,null,21],
+  22: [null,null,22],
 }
   
 export default (state = INITIAL_STATE, action) => {
+  console.log(state)
   switch(action.type){
     case 11:
-      return { ...state, playerOneCardOne: action.payload }
+      return { ...state, 11: action.payload }
     case 12:
-      return { ...state, playerOneCardTwo: action.payload }
+      return { ...state, 12: action.payload }
     case 21:
-      return { ...state, playerTwoCardOne: action.payload }
+      return { ...state, 21: action.payload }
     case 22:
-      return { ...state, playerTwoCardTwo: action.payload }
+      return { ...state, 22: action.payload }
     case 31:
-      return { ...state, comunnityCardOne: action.payload }
+      return { ...state, 31: action.payload }
     case 32:
-      return { ...state, comunnityCardTwo: action.payload }
+      return { ...state, 32: action.payload }
     case 33:
-      return { ...state, comunnityCardThree: action.payload }
+      return { ...state, 33: action.payload }
     case 34:
-      return { ...state, comunnityCardFour: action.payload }
+      return { ...state, 34: action.payload }
     case 35:
-      return { ...state, comunnityCardFive: action.payload }
+      return { ...state, 35: action.payload }
     default:
       return state;
   }
