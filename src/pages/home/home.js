@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { styles } from './styles';
 import { View } from 'react-native';
-import { card } from '../../components/cards';
+import Card from '../../components/cards';
 
 _cardH = (carta, naipe) => (
-  card(carta, naipe, 90, 55, [10], 'selector')
+  <Card 
+    carta = {carta} 
+    naipe = {naipe}
+    altura = {90} 
+    largura = {55}
+    margem = {[10]}
+    rota = 'selector' />
 );
 
 const Home = () => {

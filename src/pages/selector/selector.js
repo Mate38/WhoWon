@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { styles } from './styles';
 import { View } from 'react-native';
-import { card } from '../../components/cards';
+import Card from '../../components/cards';
 
 /**
  * card(carta, naipe, altura, largura, [margem esquerda, margem superior, margem direita, margem inferior])
  */
 _cardS = (carta, naipe) => (
-  card(carta, naipe, 47, 34, [10, 3, 10, 3], 'home')
+  <Card 
+    carta = {carta} 
+    naipe = {naipe}
+    altura = {47} 
+    largura = {34}
+    margem = {[10, 3, 10, 3]}
+    rota = 'home' />
 );
 
 const Selector = () => {
