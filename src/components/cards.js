@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { cardSelect } from '../actions/CardsActions';
 
-export default class Card extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {};
-  }
+class Card extends Component {
 
   /**
    * 1 = Ouro, 2 = Copas, 3 = Espadas, 4 = Paus 
@@ -26,12 +25,13 @@ export default class Card extends Component {
     }
   };
 
-  _onPressButton = (rota) => {
+  _onPressButton = (rota, carta, naipe, posicao) => {
     switch(rota){
       case 'home':
+        this.props.cardSelect([carta, naipe, posicao]);
         return Actions.home()
       case 'selector':
-        return Actions.selector()
+        return Actions.selector({posicao})
       default:
       return Actions.home()
     }
@@ -41,6 +41,7 @@ export default class Card extends Component {
     const {
       carta,
       naipe,
+      posicao,
       altura,
       largura,
       margem = [],
@@ -51,7 +52,12 @@ export default class Card extends Component {
     return (
       <TouchableOpacity
         {...props}
-        onPress={() => this._onPressButton(this.props.rota)}
+        onPress={() => this._onPressButton(
+                              this.props.rota, 
+                              this.props.carta, 
+                              this.props.naipe, 
+                              this.props.posicao
+                            )}
         style={{
           height: this.props.altura,
           width: this.props.largura,
@@ -73,3 +79,13 @@ export default class Card extends Component {
   }
   
 };
+
+const mapStateToProps = () => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ cardSelect }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

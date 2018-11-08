@@ -1,6 +1,6 @@
-export const cardSelect = (num) => {
+export const cardSelect = props => {
   return {
-    type: 'cardSelect',
-    payload: num
+    type: props[2],
+    payload: [props[0], props[1]]
   }
 }
