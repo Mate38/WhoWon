@@ -42,7 +42,7 @@ class Card extends Component {
       case 2:
         return "red"
       case 3:
-        return "black"
+        return "orange"//"black"
       case 4:
         return "green"
       default:
@@ -74,13 +74,13 @@ class Card extends Component {
           marginTop: this.props.margem[1],
           marginRight: this.props.margem[2],
           marginBottom: this.props.margem[3],
-          backgroundColor: this.cardColor(this.props.naipe)
+          backgroundColor: this.cardColor(this.state.naipe)
           }}>
           {/* <Image
             style={styles.button}
             source={require('./myButton.png')}
           /> */}
-        {this.state.carta && this.state.naipe ? <Text>{this.props.carta}{this.props.naipe}</Text> : <Text>Click to select</Text>}
+        {this.state.carta && this.state.naipe ? <Text>{this.state.carta}{this.state.naipe}</Text> : <Text>Click to select</Text>}
       </TouchableOpacity>
     )
 
