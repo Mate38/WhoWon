@@ -6,6 +6,13 @@ import { bindActionCreators } from 'redux';
 import { cardSelect } from '../actions/CardsActions';
 
 class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      carta = null,
+      naipe = null    
+    };
+  };
 
   /**
    * 1 = Ouro, 2 = Copas, 3 = Espadas, 4 = Paus 
@@ -38,26 +45,10 @@ class Card extends Component {
   }
 
   render() {
-    const {
-      carta,
-      naipe,
-      posicao,
-      altura,
-      largura,
-      margem = [],
-      rota,
-      ...props
-    } = this.props;
-
     return (
       <TouchableOpacity
         {...props}
-        onPress={() => this._onPressButton(
-                              this.props.rota, 
-                              this.props.carta, 
-                              this.props.naipe, 
-                              this.props.posicao
-                            )}
+        onPress={() => this._onPressButton(this.props.rota, this.state.carta, this.state.naipe, this.props.posicao)}
         style={{
           height: this.props.altura,
           width: this.props.largura,
@@ -72,7 +63,7 @@ class Card extends Component {
             style={styles.button}
             source={require('./myButton.png')}
           /> */}
-        <Text>{this.props.carta.toString()}{this.props.naipe.toString()}</Text>
+        {this.state.carta && this.state.naipe ? <Text>{this.props.carta}{this.props.naipe}</Text> : <Text>Click to select</Text>}
       </TouchableOpacity>
     )
 
@@ -80,8 +71,8 @@ class Card extends Component {
   
 };
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return { selectCards: state.CardsReducer };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,17 +1,16 @@
 const INITIAL_STATE = {
-  comunnityCardOne:   [0,0], // 31
-  comunnityCardTwo:   [0,0], // 32
-  comunnityCardThree: [0,0], // 33
-  comunnityCardFour:  [0,0], // 34
-  comunnityCardFive:  [0,0], // 35
-  playerOneCardOne:   [0,0], // 11
-  playerOneCardTwo:   [0,0], // 12
-  playerTwoCardOne:   [0,0], // 21
-  playerTwoCardTwo:   [0,0], // 22
+  comunnityCardOne:   [null,null,31], // 31
+  comunnityCardTwo:   [null,null,32], // 32
+  comunnityCardThree: [null,null,33], // 33
+  comunnityCardFour:  [null,null,34], // 34
+  comunnityCardFive:  [null,null,35], // 35
+  playerOneCardOne:   [null,null,11], // 11
+  playerOneCardTwo:   [null,null,12], // 12
+  playerTwoCardOne:   [null,null,21], // 21
+  playerTwoCardTwo:   [null,null,22], // 22
 }
   
 export default (state = INITIAL_STATE, action) => {
-  //console.log(state)
   switch(action.type){
     case 11:
       return { ...state, playerOneCardOne: action.payload }
