@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#D8D8D8',
     flexDirection: 'row',
   },
   ouro: {

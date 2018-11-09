@@ -4,13 +4,15 @@ import { Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { cardSelect } from '../actions/CardsActions';
+import { isSelected } from '../functions/isSelected';
 
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
       carta: null,
-      naipe: null    
+      naipe: null,
+      isDisabled: false    
     };
   };
 
@@ -24,10 +26,11 @@ class Card extends Component {
           })
         }
       }
-    }else{
+    }else if(this.props.rota == 'home'){
       this.setState({
         carta: this.props.carta,
         naipe: this.props.naipe,
+        isDisabled: isSelected(this.props.carta, this.props.naipe, this.props.selectCards)
       })
     }
   }
@@ -36,17 +39,21 @@ class Card extends Component {
    * 1 = Ouro, 2 = Copas, 3 = Espadas, 4 = Paus 
    */
   cardColor = (naipe) => {
-    switch(naipe){
-      case 1:
-        return "blue"
-      case 2:
-        return "red"
-      case 3:
-        return "orange"//"black"
-      case 4:
-        return "green"
-      default:
-        return "gray"
+    if(this.state.isDisabled){
+      return "#D8D8D8"
+    }else{
+      switch(naipe){
+        case 1:
+          return "#0101DF" // ouro
+        case 2:
+          return "#B40404" // copas
+        case 3:
+          return "#A4A4A4" // espadas
+        case 4:
+          return "#04B404" // paus
+        default:
+          return "gray"
+      }
     }
   };
 
@@ -62,6 +69,39 @@ class Card extends Component {
     }
   }
 
+  selectNaipeIcon = () => {
+    switch(this.state.naipe){
+      case 1:
+        return '♦'
+      case 2:
+        return '♥'
+      case 3:
+        return '♠'
+      case 4:
+        return '♣'
+      default:
+        return 'erro'
+    } 
+  }
+
+  figuras = () => {
+    if(this.state.carta == 1) return "A"
+    else if(this.state.carta == 11) return "J"
+    else if(this.state.carta == 12) return "Q"
+    else if(this.state.carta == 13) return "K"
+
+    return this.state.carta
+  }
+
+  size = () => {
+    if(this.props.rota == 'home') return 30
+    else return 35
+  }
+
+  carta = () => (
+    <Text style={{ color:"white", fontSize: this.size(), textAlign: "center" }}>{!this.state.isDisabled ? this.figuras()+this.selectNaipeIcon() : null }</Text>
+  );
+
   render() {
     return (
       <TouchableOpacity
@@ -72,15 +112,17 @@ class Card extends Component {
           margin: this.props.margem[0],
           marginLeft: this.props.margem[0],
           marginTop: this.props.margem[1],
-          marginRight: this.props.margem[2],
           marginBottom: this.props.margem[3],
-          backgroundColor: this.cardColor(this.state.naipe)
-          }}>
+          marginRight: this.props.margem[2],
+          backgroundColor: this.cardColor(this.state.naipe),
+          borderRadius: 10
+          }}
+          disabled={this.state.isDisabled}>
           {/* <Image
             style={styles.button}
             source={require('./myButton.png')}
           /> */}
-        {this.state.carta && this.state.naipe ? <Text>{this.state.carta}{this.state.naipe}</Text> : <Text>Click to select</Text>}
+        {this.state.carta && this.state.naipe ? this.carta() : <Text style={{ color:"white", fontSize: 14, textAlign: "center", marginTop: "50%" }}>Click to select</Text>}
       </TouchableOpacity>
     )
 
