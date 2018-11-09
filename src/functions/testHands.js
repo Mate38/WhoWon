@@ -38,7 +38,7 @@ export const testHands = props => {
 
   var sameKind = isSameKind(handOne.slice())
 
-  //console.log(sameKind)
+  console.log(straight, flush, sameKind)
 
   return true;
 }
