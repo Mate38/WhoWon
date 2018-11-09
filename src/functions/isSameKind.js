@@ -9,6 +9,13 @@ export const isSameKind = (hand) => {
     cards[hand[card][0]-1]++
   }
 
+  /**
+   * Array passa a conter elementos do 2 ao A
+   */
+  var a = cards[0]
+  cards.splice(0,1)
+  cards.push(a)
+
   var four = hasFour(cards)
   var three = hasThree(cards)
   var two = hasTwo(cards)
@@ -42,10 +49,14 @@ hasThree = (cards) => {
 }
 
 hasTwo = (cards) => {
+  var qnt = cards.length
   var pairs = []
-  for(card in cards){
-    if(cards[card] == 2) pairs.push(card) 
+
+  for(i = qnt; i >= 0; i--){
+    if(cards[i] == 2) pairs.push(i+2)
+    if(pairs.length == 2) break;
   }
+
   if(pairs.length > 0){
     return [pairs]
   }else 

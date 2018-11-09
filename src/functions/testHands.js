@@ -20,7 +20,10 @@ export const testHands = props => {
   var handTwo = [props[21],props[22],props[31],props[32],props[33],props[34],props[35]]
   
   one = analyze(handOne)
-  two = analyze(handTwo)
+  //two = analyze(handTwo)
+  two = 0;
+
+  console.log(one)
 
   if(one > two) return 1
   if(two > one) return 2

@@ -14,7 +14,8 @@ class Home extends Component {
   };
 
   componentDidMount = () => {
-    console.log(allSelect(this.props.selectCards));
+    //console.log(allSelect(this.props.selectCards));
+    allSelect(this.props.selectCards);
   }
 
   _cardH = (posicao) => (
@@ -35,7 +36,7 @@ class Home extends Component {
           {this._cardH(11)}
           {this._cardH(12)}
         </View>
-        <Text style={styles.messageText}>Loser</Text>
+        {/* <Text style={styles.messageText}>Loser</Text> */}
         <Text style={styles.descriptionText}>Community Cards</Text>
         <View style={styles.communityCards}>
           {this._cardH(31)}
@@ -49,7 +50,7 @@ class Home extends Component {
           {this._cardH(21)}
           {this._cardH(22)}
         </View>
-        <Text style={styles.messageText}>Winner</Text>
+        {/* <Text style={styles.messageText}>Winner</Text> */}
       </View>
     );
   }
