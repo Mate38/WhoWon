@@ -4,13 +4,15 @@ import { Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { cardSelect } from '../actions/CardsActions';
+import { isSelected } from '../functions/isSelected';
 
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
       carta: null,
-      naipe: null    
+      naipe: null,
+      isDisabled: false    
     };
   };
 
@@ -28,6 +30,7 @@ class Card extends Component {
       this.setState({
         carta: this.props.carta,
         naipe: this.props.naipe,
+        isDisabled: isSelected(this.props.carta, this.props.naipe, this.props.selectCards)
       })
     }
   }
@@ -36,17 +39,21 @@ class Card extends Component {
    * 1 = Ouro, 2 = Copas, 3 = Espadas, 4 = Paus 
    */
   cardColor = (naipe) => {
-    switch(naipe){
-      case 1:
-        return "blue"
-      case 2:
-        return "red"
-      case 3:
-        return "orange"//"black"
-      case 4:
-        return "green"
-      default:
-        return "gray"
+    if(this.state.isDisabled){
+      return "gray"
+    }else{
+      switch(naipe){
+        case 1:
+          return "blue"
+        case 2:
+          return "red"
+        case 3:
+          return "orange"//"black"
+        case 4:
+          return "green"
+        default:
+          return "gray"
+      }
     }
   };
 
@@ -75,7 +82,8 @@ class Card extends Component {
           marginRight: this.props.margem[2],
           marginBottom: this.props.margem[3],
           backgroundColor: this.cardColor(this.state.naipe)
-          }}>
+          }}
+          disabled={this.state.isDisabled}>
           {/* <Image
             style={styles.button}
             source={require('./myButton.png')}
