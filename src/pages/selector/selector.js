@@ -21,7 +21,7 @@ class Selector extends Component {
       naipe = {naipe}
       posicao = {posicao}
       altura = {47} 
-      largura = {34}
+      largura = {80}
       margem = {[10, 3, 10, 3]}
       rota = 'home' />
   );
