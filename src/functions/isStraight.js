@@ -1,6 +1,6 @@
 /**
  * Verifica se possui sequência
- * @param {*} props 
+ * @param {*} hand 
  */
 export const isStraight = (hand) => {
   var cont = 0

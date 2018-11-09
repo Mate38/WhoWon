@@ -1,5 +1,5 @@
-import { isRoyalStreetFlush } from './isRoyalStreetFlush';
 import { isStraight } from './isStraight';
+import { isFlush } from './isFlush';
 
 ordenate = (array) => {
   return array.sort(function compare(a, b) {
@@ -15,23 +15,25 @@ ordenate = (array) => {
  */
 export const testHands = props => {
   
-  const handOne = [props[11],props[12],props[31],props[32],props[33],props[34],props[35]]
-  const handTwo = [props[21],props[22],props[31],props[32],props[33],props[34],props[35]]
+  var handOne = [props[11],props[12],props[31],props[32],props[33],props[34],props[35]]
+  //var handTwo = [props[21],props[22],props[31],props[32],props[33],props[34],props[35]]
   
   ordenate(handOne);
-  ordenate(handTwo);
+  //ordenate(handTwo);
 
-  //console.log(handOne)
+  var straight = isStraight(handOne.slice());
 
-  var res = isStraight(handOne);
-
-  if(Array.isArray(res)){
-    var high = res[1]
-    res = res[0]
+  if(Array.isArray(straight)){
+    var highCard = straight[1]
+    straight = straight[0]
   }
-  
-  //console.log(res)
-  //console.log(high)
+
+  var flush = isFlush(handOne.slice());
+
+  if(Array.isArray(flush)){
+    var naipe = flush[1]
+    flush = flush[0]
+  }
 
   return true;
 }
