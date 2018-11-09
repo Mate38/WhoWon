@@ -4,6 +4,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { cardSelect } from '../actions/CardsActions';
+import { allSelect } from '../functions/allSelect';
 
 class Card extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Card extends Component {
           })
         }
       }
-    }else{
+    }else if(this.props.rota == 'home'){
       this.setState({
         carta: this.props.carta,
         naipe: this.props.naipe,
@@ -54,6 +55,7 @@ class Card extends Component {
     switch(rota){
       case 'home':
         this.props.cardSelect([this.state.carta, this.state.naipe, posicao]);
+        allSelect(this.props.selectCards);
         return Actions.home()
       case 'selector':
         return Actions.selector({posicao})
