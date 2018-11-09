@@ -13,21 +13,27 @@ export const styles = StyleSheet.create({
     margin: 10
   },
   playerOneCards: {
-    //backgroundColor: 'yellow',
     flexDirection: 'row',
-    //alignItems: 'flex-start',
-    //justifyContent: '',
   },
   playerTwoCards: {
-    //backgroundColor: 'yellow',
     flexDirection: 'row',
-    //alignItems: 'flex-start',
-    //justifyContent: '',
   },
   communityCards: {
-    //backgroundColor: 'yellow',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  descriptionText: {
+    color: "white",
+    marginTop: 50,
+    fontSize: 20
+  },
+  titleText: {
+    color: "white",
+    fontSize: 35
+  },
+  messageText: {
+    color: "white",
+    fontSize: 20
+  }
 });
