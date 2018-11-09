@@ -10,12 +10,31 @@ import Card from '../../components/cards';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      handOne: null,
+      handTwo: null
+    };
   };
 
   componentDidMount = () => {
     //console.log(allSelect(this.props.selectCards));
-    allSelect(this.props.selectCards);
+    var op = allSelect(this.props.selectCards);
+    if(op == 1){
+      this.setState({
+        handOne: 'WINNER',
+        handTwo: 'LOSER'
+      })
+    }else if(op == 2){
+      this.setState({
+        handOne: 'LOSER',
+        handTwo: 'WINNER'
+      })
+    }else if(op == 0){
+      this.setState({
+        handOne: 'SPLIT',
+        handTwo: 'SPLIT'
+      })
+    }
   }
 
   _cardH = (posicao) => (
@@ -36,7 +55,7 @@ class Home extends Component {
           {this._cardH(11)}
           {this._cardH(12)}
         </View>
-        {/* <Text style={styles.messageText}>Loser</Text> */}
+        <Text style={styles.messageText}>{this.state.handOne}</Text>
         <Text style={styles.descriptionText}>Community Cards</Text>
         <View style={styles.communityCards}>
           {this._cardH(31)}
@@ -50,7 +69,7 @@ class Home extends Component {
           {this._cardH(21)}
           {this._cardH(22)}
         </View>
-        {/* <Text style={styles.messageText}>Winner</Text> */}
+        <Text style={styles.messageText}>{this.state.handTwo}</Text>
       </View>
     );
   }
