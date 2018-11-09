@@ -8,10 +8,10 @@ export const isFlush = (hand) => {
   var espadas = 0;
   var paus = 0;
 
-  console.log(hand)
+  //console.log(hand)
   
   for(card in hand){
-    console.log(card)
+    //console.log(card)
     if(hand[card][1] == 1) ouro++; 
     else if(hand[card][1] == 2) copas++; 
     else if(hand[card][1] == 3) espadas++; 

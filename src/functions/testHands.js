@@ -1,5 +1,6 @@
 import { isStraight } from './isStraight';
 import { isFlush } from './isFlush';
+import { isSameKind } from './isSameKind'
 
 ordenate = (array) => {
   return array.sort(function compare(a, b) {
@@ -34,6 +35,10 @@ export const testHands = props => {
     var naipe = flush[1]
     flush = flush[0]
   }
+
+  var sameKind = isSameKind(handOne.slice())
+
+  //console.log(sameKind)
 
   return true;
 }
