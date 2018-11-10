@@ -14,6 +14,8 @@ Para preparar o ambiente basta seguir o pass-a-passo fornecido na própria docum
 
 [Link para documentação](https://facebook.github.io/react-native/docs/getting-started)
 
+Acessando o link acima, na aba "Building Projects with Native Code" encontrará a configuração correta, uma vez que o aplicativo foi construido de forma nativa, sem a utilização do Expo.
+
 ## Configuração
 
 Após configurar o ambiente e clonar o projeto, com o terminal aberto na pasta do projeto, execute o comando:
