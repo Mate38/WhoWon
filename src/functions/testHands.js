@@ -66,6 +66,13 @@ export const testHands = props => {
       }
       return 3
     }
+    if(one[0] == 3){
+      for(i = 0; i < 3; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
 
     return 3
   }
@@ -153,7 +160,7 @@ analyze = (hand) => {
 
   //verifica se é trinca
   if(sameKind[0] == 3){
-    return [3,null]
+    return [3,sameKind[1]]
   }
 
   //verifica se tem par ou dois pares
