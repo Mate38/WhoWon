@@ -1,32 +1,33 @@
 /**
- * Verifica se possui sequência
+ * Verifica se possui sequência do mesmo naipe
  * @param {*} hand 
  */
-export const isStraight = (hand) => {
+export const isStraightFlush = (hand) => {
   var cont = 0
   var cards = Object.keys(hand).length
   var high = [0,0,0,0,0];
 
   //adiciona o A como 14
   for(i = 0; i < cards-1; i++){
-    if(hand[i][0] == 1){
-      hand.push([14,hand[i][1],hand[i][2]])
+    if(hand[i] == 1){
+      hand.push([14,hand[i]])
     }
   }
 
   cards = Object.keys(hand).length
   
-  for(i = cards-1; i > 0; i--){
-    if(hand[i][0] != hand[i-1][0]){
-      if(hand[i][0]-1 == hand[i-1][0]){
-        high[cont] = [hand[i][0],hand[i][1]]
+  for(i = 0; i < cards; i++){
+    
+    if(hand[i] != hand[i+1]){
+      if(hand[i]-1 == hand[i+1]){
+        high[cont] = hand[i]
         cont++
       }else{ 
         cont = 0;
       }
     }
     if(cont == 4){
-      high[cont] = [hand[i-1][0],hand[i-1][1]]
+      high[cont] = hand[i+1]
       return [true, high];
     }
   }

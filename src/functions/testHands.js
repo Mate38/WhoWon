@@ -1,6 +1,7 @@
 import { isStraight } from './isStraight';
 import { isFlush } from './isFlush';
-import { isSameKind } from './isSameKind'
+import { isSameKind } from './isSameKind';
+import { isStraightFlush } from './isStraightFlush';
 
 ordenate = (array) => {
   return array.sort(function compare(a, b) {
@@ -20,18 +21,34 @@ export const testHands = props => {
   var handTwo = [props[21],props[22],props[31],props[32],props[33],props[34],props[35]]
   
   one = analyze(handOne)
+  //one = 0;
   two = analyze(handTwo)
   //two = 0;
 
-  //console.log(one)
+  console.log(one)
+  console.log(two)
 
-  if(one > two) return 1
-  if(two > one) return 2
-  if(one == two) return 0
+  if(one[0] > two[0]) return 1
+  if(two[0] > one[0]) return 2
+  if(one[0] == two[0]){
+    //Royal flush impossivel empatar
+    //Se ambos tem straight flush
+    if(one[0] == 8){
+      if(one[1][0] > two[1][0]) return 1
+      if(two[1][0] > one[1][0]) return 2
+      else return 3
+    }
+    if(one[0] == 7){
+      if(one[1][0] > two[1][0]) return 1
+      if(two[1][0] > one[1][0]) return 2
+      if(one[1][1] > two[1][1]) return 1
+      if(two[1][1] > one[1][1]) return 2
+      else return 3
+    }
 
-  /**
-   * [vencedor, mão 1, mão 2, carta alta]
-   */
+    return 3
+  }
+
   return false;
 }
 
@@ -52,16 +69,19 @@ analyze = (hand) => {
   ordenate(hand);
 
   var straight = isStraight(hand.slice());
+  //console.log(straight)
 
   if(Array.isArray(straight)){
-    var highCard = straight[1]
+    var sHand = straight[1]
     straight = straight[0]
   }
 
   var flush = isFlush(hand.slice());
+  //console.log(flush)
 
   if(Array.isArray(flush)){
     var naipe = flush[1]
+    var fHand = flush[2]
     flush = flush[0]
   }
 
@@ -72,23 +92,27 @@ analyze = (hand) => {
    * par ou dois pares: 2
    */
   var sameKind = isSameKind(hand.slice())
-
   //console.log(sameKind)
 
   var points = 0;
 
   //verifica se é royal flush ou straight flush
   if(straight && flush){
-    if(highCard == 14){
-      return 9;
-    }else{
-      return 8
+    var straightFlush = isStraightFlush(fHand.slice())
+    //console.log(straightFlush)
+
+    if(straightFlush){
+      if(fHand[0] == 14){
+        return [9,straightFlush[1]];
+      }else{
+        return [8,straightFlush[1]]
+      }
     }
   }
 
   //verifica se é quadra
   if(sameKind[0] == 4){
-    return 7
+    return [7,sameKind[1]]
   }
 
   //verifica se é full house
@@ -98,27 +122,27 @@ analyze = (hand) => {
 
   //verifica se é flush
   if(flush){
-    return 5
+    return [5,fHand]
   }
 
   //verifica se é sequência
   if(straight){
-    return 4
+    return [4,null]
   }
 
   //verifica se é trinca
   if(sameKind[0] == 3){
-    return 3
+    return [3,null]
   }
 
   //verifica se tem par ou dois pares
   if(sameKind[0] == 2){
     var qnt = Object.keys(sameKind[1][0]).length
     if(qnt == 2){
-      return 2
+      return [2,null]
     }
     if(qnt == 1){
-      return 1
+      return [1,null]
     }
   }
 

@@ -19,6 +19,7 @@ class Home extends Component {
   componentDidMount = () => {
     //console.log(allSelect(this.props.selectCards));
     var op = allSelect(this.props.selectCards);
+
     if(op == 1){
       this.setState({
         handOne: 'WINNER',
@@ -29,10 +30,15 @@ class Home extends Component {
         handOne: 'LOSER',
         handTwo: 'WINNER'
       })
-    }else if(op == 0){
+    }else if(op == 3){
       this.setState({
         handOne: 'SPLIT',
         handTwo: 'SPLIT'
+      })
+    }else{
+      this.setState({
+        handOne: null,
+        handTwo: null
       })
     }
   }

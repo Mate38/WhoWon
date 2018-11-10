@@ -35,8 +35,15 @@ export const isSameKind = (hand) => {
 }
 
 hasFour = (cards) => {
-  for(card in cards){
-    if(cards[card] == 4) return [card] 
+  var crd = Object.keys(cards).length
+  for(i = crd-1; i >= 0; i--){
+    if(cards[i] == 4){
+      for(j = crd-1; j >= 0; j--){
+        if(cards[j] != 0 && cards[j] != cards[i]){
+          return [i+2,j+2]
+        }
+      };
+    }  
   }
   return false
 }
