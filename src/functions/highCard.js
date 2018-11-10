@@ -1,8 +1,8 @@
 /**
- * Verifica se possui sequência
+ * Alinha cartas
  * @param {*} hand 
  */
-export const isStraight = (hand) => {
+export const highCard = (hand) => {
   var cont = 0
   var cards = Object.keys(hand).length
   var high = [0,0,0,0,0];
@@ -17,17 +17,11 @@ export const isStraight = (hand) => {
   cards = Object.keys(hand).length
   
   for(i = cards-1; i > 0; i--){
-    if(hand[i][0] != hand[i-1][0]){
-      if(hand[i][0]-1 == hand[i-1][0]){
-        high[cont] = hand[i][0]
-        cont++
-      }else{ 
-        cont = 0;
-      }
-    }
-    if(cont == 4){
-      high[cont] = hand[i-1][0]
-      return [true, high];
+    high[cont] = hand[i][0]
+    cont++
+
+    if(cont == 5){
+      return high;
     }
   }
   return false;

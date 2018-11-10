@@ -1,6 +1,8 @@
 import { isStraight } from './isStraight';
 import { isFlush } from './isFlush';
-import { isSameKind } from './isSameKind'
+import { isSameKind } from './isSameKind';
+import { isStraightFlush } from './isStraightFlush';
+import { highCard } from './highCard';
 
 ordenate = (array) => {
   return array.sort(function compare(a, b) {
@@ -20,18 +22,80 @@ export const testHands = props => {
   var handTwo = [props[21],props[22],props[31],props[32],props[33],props[34],props[35]]
   
   one = analyze(handOne)
+  //one = 0;
   two = analyze(handTwo)
   //two = 0;
 
-  //console.log(one)
+  console.log(one)
+  console.log(two)
 
-  if(one > two) return 1
-  if(two > one) return 2
-  if(one == two) return 0
+  if(one[0] > two[0]) return 1
+  if(two[0] > one[0]) return 2
+  if(one[0] == two[0]){
+    if(one[0] == 8){
+      if(one[1][0] > two[1][0]) return 1
+      if(two[1][0] > one[1][0]) return 2
+      else return 3
+    }
+    if(one[0] == 7){
+      if(one[1][0] > two[1][0]) return 1
+      if(two[1][0] > one[1][0]) return 2
+      if(one[1][1] > two[1][1]) return 1
+      if(two[1][1] > one[1][1]) return 2
+      else return 3
+    }
+    if(one[0] == 6){
+      if(one[1] > two[1]) return 1
+      if(two[1] > one[1]) return 2
+      if(one[2][1] > two[2][1]) return 1
+      if(two[2][1] > one[2][1]) return 2
+      else return 3
+    }
+    if(one[0] == 5){
+      for(i = 0; i < 5; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    if(one[0] == 4){
+      for(i = 0; i < 5; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    if(one[0] == 3){
+      for(i = 0; i < 3; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    if(one[0] == 2){
+      for(i = 0; i < 3; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    if(one[0] == 1){
+      for(i = 0; i < 4; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    if(one[0] == 0){
+      for(i = 0; i < 5; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    return false
+  }
 
-  /**
-   * [vencedor, mão 1, mão 2, carta alta]
-   */
   return false;
 }
 
@@ -52,16 +116,19 @@ analyze = (hand) => {
   ordenate(hand);
 
   var straight = isStraight(hand.slice());
+  //console.log(straight)
 
   if(Array.isArray(straight)){
-    var highCard = straight[1]
+    var sHand = straight[1]
     straight = straight[0]
   }
 
   var flush = isFlush(hand.slice());
+  //console.log(flush)
 
   if(Array.isArray(flush)){
     var naipe = flush[1]
+    var fHand = flush[2]
     flush = flush[0]
   }
 
@@ -72,59 +139,61 @@ analyze = (hand) => {
    * par ou dois pares: 2
    */
   var sameKind = isSameKind(hand.slice())
-
   //console.log(sameKind)
 
   var points = 0;
 
   //verifica se é royal flush ou straight flush
   if(straight && flush){
-    if(highCard == 14){
-      return 9;
-    }else{
-      return 8
+    var straightFlush = isStraightFlush(fHand.slice())
+    //console.log(straightFlush)
+
+    if(straightFlush){
+      if(fHand[0] == 14){
+        return [9,straightFlush[1]];
+      }else{
+        return [8,straightFlush[1]]
+      }
     }
   }
 
   //verifica se é quadra
   if(sameKind[0] == 4){
-    return 7
+    return [7,sameKind[1]]
   }
 
   //verifica se é full house
   if(sameKind[0] == 5){
-    return 6
+    return [6,sameKind[1],sameKind[2]]
   }
 
   //verifica se é flush
   if(flush){
-    return 5
+    console.log(fHand)
+    return [5,fHand]
   }
 
   //verifica se é sequência
   if(straight){
-    return 4
+    return [4,sHand]
   }
 
   //verifica se é trinca
   if(sameKind[0] == 3){
-    return 3
+    return [3,sameKind[1]]
   }
 
   //verifica se tem par ou dois pares
   if(sameKind[0] == 2){
-    var qnt = Object.keys(sameKind[1][0]).length
-    if(qnt == 2){
-      return 2
+    var qnt = Object.keys(sameKind[1]).length
+    if(qnt == 3){
+      return [2,sameKind[1]]
     }
-    if(qnt == 1){
-      return 1
+    if(qnt == 4){
+      return [1,sameKind[1]]
     }
   }
 
-  return 0
-}
-
-compare = () => {
-
+  //Retorna cartas válidas
+  return [0,highCard(hand.slice())]
 }
