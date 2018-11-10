@@ -169,6 +169,7 @@ analyze = (hand) => {
 
   //verifica se é flush
   if(flush){
+    console.log(fHand)
     return [5,fHand]
   }
 
