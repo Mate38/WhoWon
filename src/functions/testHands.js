@@ -2,6 +2,7 @@ import { isStraight } from './isStraight';
 import { isFlush } from './isFlush';
 import { isSameKind } from './isSameKind';
 import { isStraightFlush } from './isStraightFlush';
+import { highCard } from './highCard';
 
 ordenate = (array) => {
   return array.sort(function compare(a, b) {
@@ -85,8 +86,14 @@ export const testHands = props => {
       }
       return 3
     }
-
-    return 3
+    if(one[0] == 0){
+      for(i = 0; i < 5; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    return false
   }
 
   return false;
@@ -186,5 +193,6 @@ analyze = (hand) => {
     }
   }
 
-  return 0
+  //Retorna cartas válidas
+  return [0,highCard(hand.slice())]
 }
