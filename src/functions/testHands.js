@@ -59,6 +59,13 @@ export const testHands = props => {
       }
       return 3
     }
+    if(one[0] == 4){
+      for(i = 0; i < 5; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
 
     return 3
   }
@@ -141,7 +148,7 @@ analyze = (hand) => {
 
   //verifica se é sequência
   if(straight){
-    return [4,null]
+    return [4,sHand]
   }
 
   //verifica se é trinca
@@ -161,8 +168,4 @@ analyze = (hand) => {
   }
 
   return 0
-}
-
-compare = () => {
-
 }
