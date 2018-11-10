@@ -12,7 +12,7 @@
 
 Para preparar o ambiente basta seguir o pass-a-passo fornecido na própria documentação do React-Native
 
-```[Link para documentação](https://facebook.github.io/react-native/docs/getting-started)```
+[Link para documentação](https://facebook.github.io/react-native/docs/getting-started)
 
 ## Configuração
 
