@@ -31,8 +31,6 @@ export const testHands = props => {
   if(one[0] > two[0]) return 1
   if(two[0] > one[0]) return 2
   if(one[0] == two[0]){
-    //Royal flush impossivel empatar
-    //Se ambos tem straight flush
     if(one[0] == 8){
       if(one[1][0] > two[1][0]) return 1
       if(two[1][0] > one[1][0]) return 2
@@ -68,6 +66,20 @@ export const testHands = props => {
     }
     if(one[0] == 3){
       for(i = 0; i < 3; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    if(one[0] == 2){
+      for(i = 0; i < 3; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
+    if(one[0] == 1){
+      for(i = 0; i < 4; i++){
         if(one[1][i] > two[1][i]) return 1
         if(two[1][i] > one[1][i]) return 2
       }
@@ -165,12 +177,12 @@ analyze = (hand) => {
 
   //verifica se tem par ou dois pares
   if(sameKind[0] == 2){
-    var qnt = Object.keys(sameKind[1][0]).length
-    if(qnt == 2){
-      return [2,null]
+    var qnt = Object.keys(sameKind[1]).length
+    if(qnt == 3){
+      return [2,sameKind[1]]
     }
-    if(qnt == 1){
-      return [1,null]
+    if(qnt == 4){
+      return [1,sameKind[1]]
     }
   }
 

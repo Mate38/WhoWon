@@ -70,16 +70,37 @@ hasThree = (cards) => {
 }
 
 hasTwo = (cards) => {
-  var qnt = cards.length
+  var crd = cards.length
   var pairs = []
 
-  for(i = qnt; i >= 0; i--){
+  for(i = crd-1; i >= 0; i--){
     if(cards[i] == 2) pairs.push(i+2)
-    if(pairs.length == 2) break;
+    if(pairs.length == 2) {
+      for(j = crd-1; j >= 0; j--){
+        if(cards[j] != 0 && j+2 != pairs[0] && j+2 != pairs[1]){
+          pairs.push(j+2)
+          return pairs
+        }
+      }
+    }
   }
-
-  if(pairs.length > 0){
-    return pairs
-  }else 
-    return false
+  if(pairs.length == 1) {
+    for(j = crd-1; j >= 0; j--){
+      if(cards[j] != 0 && j+2 != pairs[0]){
+        pairs.push(j+2)
+        for(k = crd-1; k >= 0; k--){
+          if(cards[k] != 0 && k+2 != pairs[0] && k+2 != pairs[1]){
+            pairs.push(k+2)
+            for(l = crd-1; l >= 0; l--){
+              if(cards[l] != 0 && l+2 != pairs[0] && l+2 != pairs[1] && l+2 != pairs[2]){
+                pairs.push(l+2)
+                return pairs
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return false
 }
