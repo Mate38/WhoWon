@@ -45,6 +45,13 @@ export const testHands = props => {
       if(two[1][1] > one[1][1]) return 2
       else return 3
     }
+    if(one[0] == 6){
+      if(one[1] > two[1]) return 1
+      if(two[1] > one[1]) return 2
+      if(one[2][1] > two[2][1]) return 1
+      if(two[2][1] > one[2][1]) return 2
+      else return 3
+    }
 
     return 3
   }
@@ -117,7 +124,7 @@ analyze = (hand) => {
 
   //verifica se é full house
   if(sameKind[0] == 5){
-    return 6
+    return [6,sameKind[1],sameKind[2]]
   }
 
   //verifica se é flush

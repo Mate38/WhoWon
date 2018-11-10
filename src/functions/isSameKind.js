@@ -20,22 +20,25 @@ export const isSameKind = (hand) => {
   var three = hasThree(cards)
   var two = hasTwo(cards)
 
+  //console.log(three)
+  //console.log(two)
+
   /**
    * quadra: 4
    * full house: 5
    * trinca: 3
    * par ou dois pares: 2
    */
-  if(four[0]) return [4,four];
-  else if(three[0] && two[0]) return [5,three,two];
-  else if(three[0]) return [3,three];
-  else if(two[0]) return [2,two];
+  if(four) return [4,four];
+  else if(three && two) return [5,three,two];
+  else if(three) return [3,three];
+  else if(two) return [2,two];
   
   return false;
 }
 
 hasFour = (cards) => {
-  var crd = Object.keys(cards).length
+  var crd = cards.length
   for(i = crd-1; i >= 0; i--){
     if(cards[i] == 4){
       for(j = crd-1; j >= 0; j--){
@@ -49,8 +52,9 @@ hasFour = (cards) => {
 }
 
 hasThree = (cards) => {
-  for(card in cards){
-    if(cards[card] == 3) return [card] 
+  var crd = cards.length
+  for(i = crd-1; i >= 0; i--){
+    if(cards[i] == 3) return (i+2) 
   }
   return false
 }
@@ -65,7 +69,7 @@ hasTwo = (cards) => {
   }
 
   if(pairs.length > 0){
-    return [pairs]
+    return pairs
   }else 
     return false
 }
