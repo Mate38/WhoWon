@@ -52,6 +52,13 @@ export const testHands = props => {
       if(two[2][1] > one[2][1]) return 2
       else return 3
     }
+    if(one[0] == 5){
+      for(i = 0; i < 5; i++){
+        if(one[1][i] > two[1][i]) return 1
+        if(two[1][i] > one[1][i]) return 2
+      }
+      return 3
+    }
 
     return 3
   }
